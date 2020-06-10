@@ -14,7 +14,7 @@ const io = socketio(server);
 app.use(router);
 
 io.on('connection', (socket) =>{
-    console.log('We have a new connection');
+    console.log('Hay una nueva conexión');
 
     socket.on('join', ({ name, room}, callback) =>{
        const { error, user } = addUser({ id: socket.id, name, room });
@@ -23,8 +23,8 @@ io.on('connection', (socket) =>{
 
     socket.join(user.room);
 
-    socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});
-    socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user.name} has joined!` });
+    socket.emit('message', { user: 'admin', text: `${user.name}, bienvenidx a la sala ${user.room}.`});
+    socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user.name} se unió!` });
 
     io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
 
